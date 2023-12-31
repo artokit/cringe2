@@ -1,0 +1,23 @@
+# Dockerfile
+
+# pull the official docker image
+
+FROM python:3.11.1-slim
+
+# set work directory
+WORKDIR /fastapiservice
+
+# set env variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# install dependencies
+COPY r.txt .
+RUN pip install -r r.txt
+
+# copy project
+COPY . .
+
+EXPOSE 8000
+
+CMD uvicorn main:app --host 0.0.0.0 --port 8000
